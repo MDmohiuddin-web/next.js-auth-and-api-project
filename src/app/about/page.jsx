@@ -6,7 +6,7 @@ import { AuthOptions } from '../api/auth/[...nextauth]/route';
 const page =async () => {
 
     const session=await getServerSession(AuthOptions)
-    console.log(session);
+    console.log({session});
     return (
         <div className='w-4/5 mx-auto'>
             <h1 className='text-4xl'>About Us</h1>

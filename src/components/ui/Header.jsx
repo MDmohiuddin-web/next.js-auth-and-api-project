@@ -1,9 +1,10 @@
 "use client";
-import { Button } from "@/components/ui/button";
+import { Button } from "../ui/button";
 import { useState } from "react";
 import logo from "/public/a.jpg";
 import { Dialog, DialogPanel, PopoverGroup } from "@headlessui/react";
 // npm i @headlessui/react
+
 
 import {
   Bars3Icon,
@@ -16,11 +17,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
+
 
 const Header = () => {
   const session = useSession();
-//   console.log(session);
+  //   console.log(session);
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -86,27 +88,29 @@ const Header = () => {
           </Link>
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-5 items-center">
-          <Link
+          {/* <Link
             href="/"
             className="text-sm font-semibold leading-6 text-white bg-black p-2 rounded-full"
           >
             <ShoppingBagIcon width={20} className="hover:cursor-pointer" />
-          </Link>
+          </Link> */}
+        
 
-          {session.status==="authenticated" ? (
+          {session.status === "authenticated" ? (
+            <Button
+        onClick={()=>signOut()}
+              variant="outline"
+              className="capitalize bg-black text-white"
+            >
+              Logout
+            </Button>
+          ) : (
             <Button
               onClick={handler}
               variant="outline"
               className="capitalize bg-black text-white"
             >
               Login
-            </Button>
-          ) : (
-            <Button
-              variant="outline"
-              className="capitalize bg-black text-white"
-            >
-              Logout
             </Button>
           )}
         </div>
@@ -166,7 +170,7 @@ const Header = () => {
                 </Link>
               </div>
               <div className=" flex gap-5 items-center border-none">
-                <Link
+                {/* <Link
                   href="/"
                   className="text-sm font-semibold leading-6 text-white bg-black p-2 rounded-full"
                 >
@@ -174,22 +178,23 @@ const Header = () => {
                     width={20}
                     className="hover:cursor-pointer"
                   />
-                </Link>
+                </Link> */}
 
-                {session.status==="authenticated" ? (
+                {session.status === "authenticated" ? (
+                  <Button
+                    
+                    variant="outline"
+                    className="capitalize bg-black text-white"
+                  >
+                    Logout
+                  </Button>
+                ) : (
                   <Button
                     onClick={handler}
                     variant="outline"
                     className="capitalize bg-black text-white"
                   >
                     Login
-                  </Button>
-                ) : (
-                  <Button
-                    variant="outline"
-                    className="capitalize bg-black text-white"
-                  >
-                    Logout
                   </Button>
                 )}
               </div>
