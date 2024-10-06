@@ -1,10 +1,10 @@
 "use client";
 import { Button } from "../ui/button";
 import { useState } from "react";
-import logo from "/public/a.jpg";
+import logo from "/public/OIP.jpg";
+import user_Logo from "/public/th.jpg";
 import { Dialog, DialogPanel, PopoverGroup } from "@headlessui/react";
 // npm i @headlessui/react
-
 
 import {
   Bars3Icon,
@@ -16,12 +16,12 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
-
 
 const Header = () => {
   const session = useSession();
+  const pathName = usePathname();
   //   console.log(session);
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -31,8 +31,31 @@ const Header = () => {
     console.log("hello");
   };
 
+  const links = [
+    {
+      title: "home",
+      path: "/",
+    },{
+      title: "about",
+      path: "/about",
+    },
+    {
+      title: "blog",
+      path: "/",
+    },
+    {
+      title: "posts",
+      path: "/",
+    },
+    
+    {
+      title: "services",
+      path: "/",
+    },
+  ];
+
   return (
-    <div className="bg-gray-100">
+    <div className="">
       <nav
         aria-label="Global"
         className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
@@ -60,45 +83,31 @@ const Header = () => {
             <Bars3Icon aria-hidden="true" className="h-6 w-6" />
           </button>
         </div>
-        <PopoverGroup className="hidden lg:flex lg:gap-x-12">
-          <Link
-            href="/"
-            className="text-sm font-semibold leading-6 text-gray-900 hover:bg-black hover:text-white p-2 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-md"
-            aria-current="page"
-          >
-            Menu
-          </Link>
-          <Link
-            href="/about"
-            className="text-sm font-semibold leading-6 text-gray-900 hover:bg-black hover:text-white p-2 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-md"
-          >
-            About Us
-          </Link>
-          <Link
-            href="/"
-            className="text-sm font-semibold leading-6 text-gray-900 hover:bg-black hover:text-white p-2 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-md"
-          >
-            Find Us
-          </Link>
-          <Link
-            href="/"
-            className="text-sm font-semibold leading-6 text-gray-900 hover:bg-black hover:text-white p-2 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-md"
-          >
-            Alowishus Catering
-          </Link>
+        <PopoverGroup className="hidden lg:flex lg:gap-x-12 ">
+          {links.map((link) => (
+            <Link
+              key={link.title}
+              href={link.path}
+              className="text-sm capitalize font-semibold leading-6 text-gray-900 hover:bg-black hover:text-white p-2 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-md"
+              aria-current="page"
+            >
+              {link.title}
+            </Link>
+          ))}
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-5 items-center">
-          {/* <Link
-            href="/"
-            className="text-sm font-semibold leading-6 text-white bg-black p-2 rounded-full"
-          >
-            <ShoppingBagIcon width={20} className="hover:cursor-pointer" />
-          </Link> */}
-        
+          <Image
+            height={200}
+            width={80}
+            alt="Alowishus Delicious Logo"
+            src={user_Logo}
+            loading="lazy"
+            className="h-8 w-auto"
+          />
 
           {session.status === "authenticated" ? (
             <Button
-        onClick={()=>signOut()}
+              onClick={() => signOut()}
               variant="outline"
               className="capitalize bg-black text-white"
             >
@@ -143,46 +152,18 @@ const Header = () => {
           </div>
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
-              <div className="space-y-2 py-6">
-                <Link
-                  href="/"
-                  className="block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 transition-colors duration-300"
-                >
-                  Menu
-                </Link>
-                <Link
-                  href="/about"
-                  className="block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 transition-colors duration-300"
-                >
-                  About Us
-                </Link>
-                <Link
-                  href="/"
-                  className="block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 transition-colors duration-300"
-                >
-                  Find Us
-                </Link>
-                <Link
-                  href="/"
-                  className="block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 transition-colors duration-300"
-                >
-                  Alowishus Catering
-                </Link>
-              </div>
-              <div className=" flex gap-5 items-center border-none">
-                {/* <Link
-                  href="/"
-                  className="text-sm font-semibold leading-6 text-white bg-black p-2 rounded-full"
-                >
-                  <ShoppingBagIcon
-                    width={20}
-                    className="hover:cursor-pointer"
-                  />
-                </Link> */}
+              <div className=" flex gap-5 items-center border-none pt-10 justify-between">
+                <Image
+                  height={200}
+                  width={80}
+                  alt="Alowishus Delicious Logo"
+                  src={user_Logo}
+                  loading="lazy"
+                  className="h-8 w-auto"
+                />
 
                 {session.status === "authenticated" ? (
                   <Button
-                    
                     variant="outline"
                     className="capitalize bg-black text-white"
                   >
@@ -197,6 +178,18 @@ const Header = () => {
                     Login
                   </Button>
                 )}
+              </div>
+              <div className="space-y-2 py-6 border-none  flex flex-col">
+                {links.map((link) => (
+                  <Link
+                    key={link.title}
+                    href={link.path}
+                    className="text-sm capitalize font-semibold leading-6 text-gray-900 hover:bg-black hover:text-white p-2 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-md"
+                    aria-current="page"
+                  >
+                    {link.title}
+                  </Link>
+                ))}
               </div>
             </div>
           </div>
