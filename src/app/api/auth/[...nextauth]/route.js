@@ -1,7 +1,11 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+export const AuthOptions={
+  // Configure NextAuth options
+  // Set the secret key for signing JWT tokens
+  secret: process.env.NEXT_PUBLIC_API_SECRET,
 
-const handler = NextAuth({
+
   // Configure session strategy to use JSON Web Tokens (JWT)
   session: {
     strategy: "jwt",
@@ -57,31 +61,32 @@ const handler = NextAuth({
   // pages: {
   //     signIn: "/auth/signin",
   // }
-});
+}
+const handler = NextAuth(AuthOptions);
 export { handler as GET, handler as POST };
 
 const users = [
   {
     id: 2,
-    name: "Priya",
+    name: "Emily Johnson",
     email: "priya@example.com",
     password: "password",
   },
   {
     id: 3,
-    name: "Amit",
-    email: "amit@example.com",
+    name: "Michael Chen",
+    email: "amitkumar@example.com",
     password: "password",
   },
   {
     id: 4,
-    name: "Neha",
+    name: "Sophia Rodriguez",
     email: "neha@example.com",
     password: "password",
   },
   {
     id: 5,
-    name: "Vikram",
+    name: "Alexander Patel",
     email: "vikram@example.com",
     password: "password",
   },

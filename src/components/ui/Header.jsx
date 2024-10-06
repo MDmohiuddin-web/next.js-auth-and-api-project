@@ -15,8 +15,19 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+
 const Header = () => {
+  const session = useSession();
+//   console.log(session);
+  const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handler = () => {
+    router.push("/api/auth/signin");
+    console.log("hello");
+  };
 
   return (
     <div className="bg-gray-100">
@@ -53,10 +64,10 @@ const Header = () => {
             className="text-sm font-semibold leading-6 text-gray-900 hover:bg-black hover:text-white p-2 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-md"
             aria-current="page"
           >
-             Menu
+            Menu
           </Link>
           <Link
-            href="/"
+            href="/about"
             className="text-sm font-semibold leading-6 text-gray-900 hover:bg-black hover:text-white p-2 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-md"
           >
             About Us
@@ -81,9 +92,23 @@ const Header = () => {
           >
             <ShoppingBagIcon width={20} className="hover:cursor-pointer" />
           </Link>
-          <Button variant="outline" className="capitalize bg-black text-white">
-            Login
-          </Button>
+
+          {session.status==="authenticated" ? (
+            <Button
+              onClick={handler}
+              variant="outline"
+              className="capitalize bg-black text-white"
+            >
+              Login
+            </Button>
+          ) : (
+            <Button
+              variant="outline"
+              className="capitalize bg-black text-white"
+            >
+              Logout
+            </Button>
+          )}
         </div>
       </nav>
       <Dialog
@@ -119,10 +144,10 @@ const Header = () => {
                   href="/"
                   className="block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 transition-colors duration-300"
                 >
-                   Menu
+                  Menu
                 </Link>
                 <Link
-                  href="/"
+                  href="/about"
                   className="block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 transition-colors duration-300"
                 >
                   About Us
@@ -150,12 +175,23 @@ const Header = () => {
                     className="hover:cursor-pointer"
                   />
                 </Link>
-                <Button
-                  variant="outline"
-                  className="capitalize bg-black text-white"
-                >
-                  Login
-                </Button>
+
+                {session.status==="authenticated" ? (
+                  <Button
+                    onClick={handler}
+                    variant="outline"
+                    className="capitalize bg-black text-white"
+                  >
+                    Login
+                  </Button>
+                ) : (
+                  <Button
+                    variant="outline"
+                    className="capitalize bg-black text-white"
+                  >
+                    Logout
+                  </Button>
+                )}
               </div>
             </div>
           </div>
