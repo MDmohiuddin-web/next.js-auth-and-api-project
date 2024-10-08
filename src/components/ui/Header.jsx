@@ -100,7 +100,7 @@ const Header = () => {
           </div>
           <Image
             height={200}
-            width={80}
+            width={200}
             alt="Alowishus Delicious Logo"
             src={session?.data?.user?.image || user_Logo}
             loading="lazy"
@@ -162,7 +162,7 @@ const Header = () => {
                 </div>
                 <Image
                   height={200}
-                  width={80}
+                  width={200}
                   alt="Alowishus Delicious Logo"
                   src={session?.data?.user?.image || user_Logo}
                   loading="lazy"
