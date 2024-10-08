@@ -9,20 +9,20 @@ import { Dialog, DialogPanel, PopoverGroup } from "@headlessui/react";
 import {
   Bars3Icon,
   XMarkIcon,
-  ShoppingBagIcon,
+ 
 } from "@heroicons/react/24/outline";
 // npm i @heroicons/react
 
 import Image from "next/image";
 import Link from "next/link";
 
-import { usePathname, useRouter } from "next/navigation";
+import {  useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 
 const Header = () => {
   const session = useSession();
-  const pathName = usePathname();
-  //   console.log(session);
+  // const pathName = usePathname();
+    console.log(session);
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -35,7 +35,8 @@ const Header = () => {
     {
       title: "home",
       path: "/",
-    },{
+    },
+    {
       title: "about",
       path: "/about",
     },
@@ -47,7 +48,7 @@ const Header = () => {
       title: "posts",
       path: "/",
     },
-    
+
     {
       title: "services",
       path: "/",
