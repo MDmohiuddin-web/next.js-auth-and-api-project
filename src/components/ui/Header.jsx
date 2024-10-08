@@ -6,23 +6,19 @@ import user_Logo from "/public/th.jpg";
 import { Dialog, DialogPanel, PopoverGroup } from "@headlessui/react";
 // npm i @headlessui/react
 
-import {
-  Bars3Icon,
-  XMarkIcon,
- 
-} from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 // npm i @heroicons/react
 
 import Image from "next/image";
 import Link from "next/link";
 
-import {  useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 
 const Header = () => {
   const session = useSession();
   // const pathName = usePathname();
-    console.log(session);
+  console.log(session);
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -97,13 +93,18 @@ const Header = () => {
           ))}
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-5 items-center">
+          <div>
+            {session?.data?.user?.name}
+            <br />
+            {session?.data?.user?.email}
+          </div>
           <Image
             height={200}
             width={80}
             alt="Alowishus Delicious Logo"
-            src={user_Logo}
+            src={session?.data?.user?.image || user_Logo}
             loading="lazy"
-            className="h-8 w-auto"
+            className="h-8 w-auto rounded-3xl hover:scale-105 hover:shadow-md duration-500 ease-in-out"
           />
 
           {session.status === "authenticated" ? (
@@ -154,13 +155,18 @@ const Header = () => {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className=" flex gap-5 items-center border-none pt-10 justify-between">
+                <div>
+                  {session?.data?.user?.name}
+                  <br />
+                  {session?.data?.user?.email}
+                </div>
                 <Image
                   height={200}
                   width={80}
                   alt="Alowishus Delicious Logo"
-                  src={user_Logo}
+                  src={session?.data?.user?.image || user_Logo}
                   loading="lazy"
-                  className="h-8 w-auto"
+                  className="h-8 w-auto rounded-3xl hover:scale-105 hover:shadow-md duration-500 ease-in-out"
                 />
 
                 {session.status === "authenticated" ? (
