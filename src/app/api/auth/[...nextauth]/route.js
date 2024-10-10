@@ -2,6 +2,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import connectDB from "../../../../lib/connectDB";
+import GoogleProvider from "next-auth/providers/google";
 
 // Configuration options for NextAuth
 export const AuthOptions = {
@@ -62,6 +63,12 @@ export const AuthOptions = {
         return null;
       },
     }),
+    GoogleProvider({
+      clientId: process.env.NEXT_GOOGLE_CLIENT_ID,
+      clientSecret: process.env.NEXT_GOOGLE_CLIENT_SECRET
+    }),
+    
+    
   ],
   // Callback functions for token and session handling
   callbacks: {

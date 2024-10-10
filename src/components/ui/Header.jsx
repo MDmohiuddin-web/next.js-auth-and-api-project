@@ -95,6 +95,8 @@ const Header = () => {
         <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-5 items-center">
           <div>
             {session?.data?.user?.name}
+            {/* <br />
+            {session?.data?.user?.type} */}
             <br />
             {session?.data?.user?.email}
           </div>
