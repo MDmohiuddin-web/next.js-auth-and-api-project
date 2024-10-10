@@ -7,16 +7,21 @@ const SignUpPage = () => {
     e.preventDefault();
     const newUser = {
       name: e.target.name.value,
+      image: e.target.image.value,
       email: e.target.email.value,
+      type: e.target.type.value,
       password: e.target.password.value,
     };
-    const response = await fetch("http://localhost:3000/api/auth/signup/new-user", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newUser),
-    });
+    const response = await fetch(
+      "http://localhost:3000/api/auth/signup/new-user",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+      }
+    );
     console.log(response);
   };
 
@@ -46,25 +51,58 @@ const SignUpPage = () => {
             </label>
             <div className="relative">
               <input
-              autoComplete="name"
-              
-                id="name"
+                autoComplete="name"
                 type="text"
+                name="name"
+                id="name"
                 className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                 placeholder="Full Name"
                 required
               />
             </div>
           </div>
+          <div>
+            <label htmlFor="image" className="sr-only">
+              Image
+            </label>
+            <div className="relative">
+              <input
+                autoComplete="off"
+                type="url"
+                name="image"
+                id="image"
+                className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                placeholder="Image URL"
+                required
+              />
+            </div>
+          </div>
 
+          <div>
+            <label htmlFor="option" className="sr-only">
+              type
+            </label>
+            <div className="relative">
+              <select
+                name="type"
+                id="type"
+                className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm capitalize"
+              >
+                <option value="user">user</option>
+                <option value="admin">admin</option>
+                <option value="moderator">moderator</option>
+              </select>
+            </div>
+          </div>
           <div>
             <label htmlFor="email" className="sr-only">
               Email
             </label>
             <div className="relative">
               <input
-              autoComplete="email"
+                autoComplete="email"
                 id="email"
+                name="email"
                 type="email"
                 className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                 placeholder="Email Address"
@@ -79,8 +117,9 @@ const SignUpPage = () => {
             </label>
             <div className="relative">
               <input
-                autoComplete="current-password"
                 id="password"
+                name="password"
+                autoComplete="current-password"
                 type="password"
                 className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                 placeholder="Create Password"

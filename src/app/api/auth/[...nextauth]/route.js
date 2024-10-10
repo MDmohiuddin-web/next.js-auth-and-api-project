@@ -1,6 +1,7 @@
 
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import connectDB from "../../../../lib/connectDB";
 
 // Configuration options for NextAuth
 export const AuthOptions = {
@@ -44,10 +45,18 @@ export const AuthOptions = {
 
         // Validate email and password
         if (email) {
-          const currentUser = users.find(
-            (user) => user.email === email && user.password === password
-          );
-          return currentUser;
+          // Find user in the database
+          const currentUser = await db.collection("users").findOne({ email: email });
+          console.log(currentUser);
+          if (currentUser) {
+            // Check if the password matches
+            if (currentUser.password === password) {
+              return currentUser;
+            } else {
+              return null;
+            }
+          }
+          return null;
         }
 
         return null;
