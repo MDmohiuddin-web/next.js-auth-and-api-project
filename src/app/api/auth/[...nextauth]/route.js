@@ -1,3 +1,4 @@
+
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -5,7 +6,8 @@ import CredentialsProvider from "next-auth/providers/credentials";
 export const AuthOptions = {
   // Secret key for JWT encryption
   secret: process.env.NEXT_PUBLIC_API_SECRET,
-
+  
+  
   // Session configuration
   session: {
     strategy: "jwt",
@@ -33,6 +35,7 @@ export const AuthOptions = {
       // Authorization function
       async authorize(credentials) {
         const { email, password } = credentials;
+        const db = await connectDB()
 
         // Check if credentials are provided
         if (!credentials) {
@@ -72,6 +75,7 @@ export const AuthOptions = {
 
 // Create NextAuth handler
 const handler = NextAuth(AuthOptions);
+
 export { handler as GET, handler as POST };
 
 // Mock user data for testing
@@ -82,7 +86,8 @@ const users = [
     email: "priya@example.com",
     password: "password",
     type: "admin",
-    image: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    image:
+      "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   },
   {
     id: 3,
@@ -90,7 +95,8 @@ const users = [
     email: "amitkumar@example.com",
     password: "password",
     type: "user",
-    image: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    image:
+      "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   },
   {
     id: 4,
@@ -98,7 +104,8 @@ const users = [
     email: "neha@example.com",
     password: "password",
     type: "admin",
-    image: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    image:
+      "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   },
   {
     id: 5,
@@ -106,6 +113,7 @@ const users = [
     email: "vikram@example.com",
     password: "password",
     type: "user",
-    image: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    image:
+      "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   },
 ];
