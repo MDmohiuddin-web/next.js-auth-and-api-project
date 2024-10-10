@@ -1,15 +1,15 @@
-
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import connectDB from "../../../../lib/connectDB";
+import FacebookProvider from "next-auth/providers/facebook";
 import GoogleProvider from "next-auth/providers/google";
+import GitHubProvider from "next-auth/providers/github";
 
 // Configuration options for NextAuth
 export const AuthOptions = {
   // Secret key for JWT encryption
   secret: process.env.NEXT_PUBLIC_API_SECRET,
-  
-  
+
   // Session configuration
   session: {
     strategy: "jwt",
@@ -37,7 +37,8 @@ export const AuthOptions = {
       // Authorization function
       async authorize(credentials) {
         const { email, password } = credentials;
-        const db = await connectDB()
+        const db = await connectDB();
+
 
         // Check if credentials are provided
         if (!credentials) {
@@ -47,7 +48,9 @@ export const AuthOptions = {
         // Validate email and password
         if (email) {
           // Find user in the database
-          const currentUser = await db.collection("users").findOne({ email: email });
+          const currentUser = await db
+            .collection("users")
+            .findOne({ email: email });
           console.log(currentUser);
           if (currentUser) {
             // Check if the password matches
@@ -65,9 +68,15 @@ export const AuthOptions = {
     }),
     GoogleProvider({
       clientId: process.env.NEXT_GOOGLE_CLIENT_ID,
-      clientSecret: process.env.NEXT_GOOGLE_CLIENT_SECRET
+      clientSecret: process.env.NEXT_GOOGLE_CLIENT_SECRET,
+    }),GitHubProvider({
+      clientId: process.env.NEXT_GITHUB_ID,
+      clientSecret: process.env.NEXT_GITHUB_SECRET,
     }),
-    
+    // FacebookProvider({
+    //   clientId: process.env.NEXT_FACEBOOK_CLIENT_ID,
+    //   clientSecret: process.env.NEXT_FACEBOOK_CLIENT_SECRET,
+    // }),
     
   ],
   // Callback functions for token and session handling
